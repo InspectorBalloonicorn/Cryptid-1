@@ -1917,6 +1917,7 @@ local seraph = {
 		return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
 	end,
 }
+
 local opalized = {
 	object_type = "Enhancement",
 	key = "opalized",
