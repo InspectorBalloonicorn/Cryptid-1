@@ -1917,6 +1917,59 @@ local seraph = {
 		return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
 	end,
 }
+local opalized = {
+	object_type = "Enhancement",
+	key = "opalized",
+	atlas = "cry_misc",
+	pos = {x = 1, y = 3 }, 
+	config = {extra = {levelOdds = 4}},
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card and card.ability.extra.levelOdds or 4} }
+	end,
+	calculate = function(self,card,context)
+		if context.cardarea == G.play and context.scoring_hand and not context.repetition then
+				if pseudorandom("opalized") < cry_prob(card.ability.cry_prob, card.ability.extra.levelOdds, card.ability.cry_rigged) / card.ability.extra.levelOdds then
+					G.E_MANAGER:add_event(Event({
+						trigger = "before",
+						delay = 0.0,
+						func = function()
+							local card_type = "Planet"
+							local _planet = nil
+							if G.GAME.last_hand_played then
+								for k, v in pairs(G.P_CENTER_POOLS.Planet) do
+									if v.config.hand_type == G.GAME.last_hand_played then
+										_planet = v.key
+										break
+									end
+								end
+							end
+							local card = create_card(card_type, G.consumeables, nil, nil, nil, nil, _planet, "opalized")
+							card:add_to_deck()
+							G.consumeables:emplace(card)
+
+							return true
+					end,
+					}))
+				return true
+			end
+		end
+	end
+}
+local dreaming = { 
+	object_type = "Consumable",
+	set = "Tarot",
+	name = "cry-dreaming",
+	key = "dreaming",
+	order = 2,
+	pos = { x = 1, y = 2 },
+	config = { mod_conv = "m_cry_opalized", max_highlighted = 2 },
+	atlas = "placeholders",
+	loc_vars = function(self, info_queue)
+		info_queue[#info_queue + 1] = G.P_CENTERS.m_cry_opalized
+
+		return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
+	end,
+}
 local abstract = {
 	cry_credits = {
 		idea = {
@@ -2237,6 +2290,8 @@ local miscitems = {
 	seraph,
 	jollyeditionshader,
 	jollyedition,
+	opalized,
+	dreaming
 }
 return {
 	name = "Misc.",
