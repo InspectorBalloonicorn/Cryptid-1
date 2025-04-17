@@ -1917,8 +1917,18 @@ local seraph = {
 		return { vars = { card and card.ability.max_highlighted or self.config.max_highlighted } }
 	end,
 }
-
 local opalized = {
+	cry_credits = {
+		idea = {
+			"InspectorB",
+		},
+		art = {
+			"InspectorB",
+		},
+		code = {
+			"InspectorB",
+		},
+	},
 	object_type = "Enhancement",
 	key = "opalized",
 	atlas = "cry_misc",
@@ -1947,7 +1957,6 @@ local opalized = {
 							local card = create_card(card_type, G.consumeables, nil, nil, nil, nil, _planet, "opalized")
 							card:add_to_deck()
 							G.consumeables:emplace(card)
-
 							return true
 					end,
 					}))
@@ -1957,6 +1966,17 @@ local opalized = {
 	end
 }
 local dreaming = { 
+	cry_credits = {
+		idea = {
+			"InspectorB",
+		},
+		art = {
+			"InspectorB",
+		},
+		code = {
+			"InspectorB",
+		},
+	},
 	object_type = "Consumable",
 	set = "Tarot",
 	name = "cry-dreaming",
